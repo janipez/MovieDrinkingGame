@@ -1,5 +1,6 @@
 package com.jadi.moviedrinkinggame;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
 {
+    public final static String prenesiFilm = "com.jadi.moviedrinkinggame.prenesenifilm";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -47,11 +49,7 @@ public class MainActivity extends AppCompatActivity
         //bp.izbrisiVseDogodke();
 
         ArrayList<Film> vsiFilmi = bp.beriVseFilme();
-        //ArrayList<Dogodek> izbraniDogodki = bp.beriIzbraneDogodke(2);
-
         FilmAdapter filmAdapter = new FilmAdapter(this, vsiFilmi);
-        //DogodekAdapter dogodekAdapter = new DogodekAdapter(this, izbraniDogodki);
-
         lv.setAdapter(filmAdapter);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -62,7 +60,12 @@ public class MainActivity extends AppCompatActivity
                 Film izbraniFilm = (Film) (lv.getItemAtPosition(position));
                 tv.setText(String.valueOf(izbraniFilm.idFilm) + ": " + izbraniFilm.naslov);
 
-                ArrayList<Dogodek> izbraniDogodki = bp.beriIzbraneDogodke(izbraniFilm.idFilm);
+                //ArrayList<Dogodek> izbraniDogodki = bp.beriIzbraneDogodke(izbraniFilm.idFilm);
+
+                //Prenesi na naslednji Activity
+                Intent intent = new Intent(MainActivity.this, DogodkiActivity.class);
+                intent.putExtra(prenesiFilm, String.valueOf(izbraniFilm.idFilm)+ ": " + izbraniFilm.naslov);
+                startActivity(intent);
             }
         });
     }
