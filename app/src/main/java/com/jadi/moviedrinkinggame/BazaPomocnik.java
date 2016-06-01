@@ -15,7 +15,6 @@ import java.util.List;
 
 public class BazaPomocnik extends SQLiteOpenHelper
 {
-
     //Ime PB
     static final String PB_IME = "FILMI_IN_DOGODKI.DB";
 
@@ -83,7 +82,7 @@ public class BazaPomocnik extends SQLiteOpenHelper
         pb.close();
     }
 
-    //Branje 1 filma iz baze
+    //Branje enega filma iz baze
     public Film beriFilm(int id)
     {
         SQLiteDatabase pb = this.getWritableDatabase();
@@ -141,9 +140,81 @@ public class BazaPomocnik extends SQLiteOpenHelper
             while (cursor.moveToNext());
         }
 
+        pb.close();
+        cursor.close();
+
         return seznamFilmov;
     }
 
-    //Dodajanje dogodkov
+    //Izbriši vse filme iz baze
+    public void izbrisiVseFilme()
+    {
+        SQLiteDatabase pb = this.getWritableDatabase();
+        String deleteStavek = "DELETE FROM FILMI";
 
+        pb.execSQL(deleteStavek);
+        pb.close();
+    }
+
+    //Dodajanje dogodka v bazo
+    public void dodajDogodek(Dogodek dogodek)
+    {
+        SQLiteDatabase pb = this.getWritableDatabase();
+
+        ContentValues vrednosti = new ContentValues();
+        vrednosti.put("idDogodek", dogodek.getIdDogodek());
+        vrednosti.put("naziv", dogodek.getNaziv());
+        vrednosti.put("naloga", dogodek.getNaloga());
+        vrednosti.put("vrednost", dogodek.getVrednost());
+        vrednosti.put("casProzitve", dogodek.getCasProzitve());
+        vrednosti.put("tkIdFilm", dogodek.getTkIdFilm());
+
+        pb.insert("DOGODKI", null, vrednosti);
+        pb.close();
+    }
+
+    //Beri vse dogodke, ki so na izbranem filmu
+    public ArrayList<Dogodek> beriIzbraneDogodke(int id)
+    {
+        ArrayList<Dogodek> seznamDogodkov = new ArrayList<Dogodek>();
+
+        SQLiteDatabase pb = this.getWritableDatabase();
+        String selectStavek =
+                "SELECT DOGODKI.* FROM FILMI, DOGODKI WHERE FILMI.idFilm = DOGODKI.tkIdFilm AND FILMI.idFilm = " + String.valueOf(id);
+
+        Cursor cursor = pb.rawQuery(selectStavek, null);
+
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+                Dogodek dogodek = new Dogodek();
+
+                dogodek.setIdDogodek(Integer.parseInt(cursor.getString(0)));
+                dogodek.setNaziv(cursor.getString(1));
+                dogodek.setNaloga(cursor.getString(2));
+                dogodek.setVrednost(Integer.parseInt(cursor.getString(3)));
+                dogodek.setCasProzitve(Integer.parseInt(cursor.getString(4)));
+                dogodek.setTkIdFilm(Integer.parseInt(cursor.getString(5)));
+
+                seznamDogodkov.add(dogodek);
+            }
+            while (cursor.moveToNext());
+        }
+
+        pb.close();
+        cursor.close();
+
+        return seznamDogodkov;
+    }
+
+    //Izbriši vse dogodke iz baze
+    public void izbrisiVseDogodke()
+    {
+        SQLiteDatabase pb = this.getWritableDatabase();
+        String deleteStavek = "DELETE FROM DOGODKI";
+
+        pb.execSQL(deleteStavek);
+        pb.close();
+    }
 }
