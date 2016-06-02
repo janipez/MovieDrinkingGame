@@ -23,11 +23,10 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         final ListView lv = (ListView) findViewById(R.id.listViewTest);
-        final TextView tv = (TextView) findViewById(R.id.textViewTest);
 
         final BazaPomocnik bp = new BazaPomocnik(this);
 
-        /*bp.dodajFilm(new Film(1, "film", "Avengers", "Science Fiction", 8, "Assemble!", 140));
+        bp.dodajFilm(new Film(1, "film", "Avengers", "Science Fiction", 8, "Assemble!", 140));
         bp.dodajFilm(new Film(2, "film", "Iron Man", "Science Fiction", 7, "Tony Stark was able to build this in a cave!", 130));
         bp.dodajFilm(new Film(3, "film", "Shutter Island", "Mystery", 9, "Who is mad?", 120));
         bp.dodajFilm(new Film(4, "serija", "Game of Thrones S02E05", "ZF", 9, "Hold the Door!", 55));
@@ -43,7 +42,12 @@ public class MainActivity extends AppCompatActivity
         bp.dodajDogodek(new Dogodek(7, "Prvi oklep", "Na vrsti je 1 shot (vode, seveda)", 7, 22, 2));
         bp.dodajDogodek(new Dogodek(8, "Zmrznil si", "Dodaj led v kozarec vode", 15, 40, 2));
         bp.dodajDogodek(new Dogodek(9, "Tonyju Starku je to uspelo narediti v jami!", "EKSAJ!", 6, 67, 2));
-        bp.dodajDogodek(new Dogodek(10, "Eksplozija", "Bomba vode", 8, 80, 2));*/
+        bp.dodajDogodek(new Dogodek(10, "Eksplozija", "Bomba vode", 8, 80, 2));
+        bp.dodajDogodek(new Dogodek(11, "Že konec??", "Odnesi vodo in jo zlij", 8, 80, 2));
+
+        bp.dodajDogodek(new Dogodek(12, "Doktor prispel na otok.", "Morska bolezen - spij vodo", 5, 10, 3));
+        bp.dodajDogodek(new Dogodek(13, "Doktor razstreli avto.", "Adijo.", 5, 30, 3));
+        bp.dodajDogodek(new Dogodek(14, "Doktor je norec?!?", "Eksaj.", 5, 80, 3));
 
         //bp.izbrisiVseFilme();
         //bp.izbrisiVseDogodke();
@@ -58,7 +62,6 @@ public class MainActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 Film izbraniFilm = (Film) (lv.getItemAtPosition(position));
-                tv.setText(String.valueOf(izbraniFilm.idFilm) + ": " + izbraniFilm.naslov);
 
                 //Prenesi na naslednji Activity
                 Intent intent = new Intent(MainActivity.this, DogodkiActivity.class);

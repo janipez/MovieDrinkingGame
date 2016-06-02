@@ -78,7 +78,8 @@ public class BazaPomocnik extends SQLiteOpenHelper
         vrednosti.put("citat", film.getCitat());
         vrednosti.put("casTrajanja", film.getCasTrajanja());
 
-        pb.insert("FILMI", null, vrednosti);
+        //pb.insert("FILMI", null, vrednosti);
+        pb.insertWithOnConflict("FILMI", null, vrednosti, SQLiteDatabase.CONFLICT_IGNORE);
         pb.close();
     }
 
@@ -169,7 +170,8 @@ public class BazaPomocnik extends SQLiteOpenHelper
         vrednosti.put("casProzitve", dogodek.getCasProzitve());
         vrednosti.put("tkIdFilm", dogodek.getTkIdFilm());
 
-        pb.insert("DOGODKI", null, vrednosti);
+        //pb.insert("DOGODKI", null, vrednosti);
+        pb.insertWithOnConflict("DOGODKI", null, vrednosti, SQLiteDatabase.CONFLICT_IGNORE);
         pb.close();
     }
 
