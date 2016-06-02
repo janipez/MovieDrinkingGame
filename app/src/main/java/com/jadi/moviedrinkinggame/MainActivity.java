@@ -60,8 +60,6 @@ public class MainActivity extends AppCompatActivity
                 Film izbraniFilm = (Film) (lv.getItemAtPosition(position));
                 tv.setText(String.valueOf(izbraniFilm.idFilm) + ": " + izbraniFilm.naslov);
 
-                //ArrayList<Dogodek> izbraniDogodki = bp.beriIzbraneDogodke(izbraniFilm.idFilm);
-
                 //Prenesi na naslednji Activity
                 Intent intent = new Intent(MainActivity.this, DogodkiActivity.class);
                 intent.putExtra(prenesiFilm, String.valueOf(izbraniFilm.idFilm)+ ": " + izbraniFilm.naslov);
