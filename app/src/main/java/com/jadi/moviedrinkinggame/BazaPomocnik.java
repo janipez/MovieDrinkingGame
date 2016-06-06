@@ -69,7 +69,11 @@ public class BazaPomocnik extends SQLiteOpenHelper
     {
         SQLiteDatabase pb = this.getWritableDatabase();
 
-        ContentValues vrednosti = new ContentValues();
+        String stavek =
+                "REPLACE INTO FILMI (idFilm, tip, naslov, zvrst, ocena, citat, casTrajanja)" +
+                " VALUES (" + film.getIdFilm() + ", '" + film.getTip() + "', '" + film.getNaslov() + "', '" + film.getZvrst() + "', " + film.getOcena() + ", '" + film.getCitat() + "', " + film.getCasTrajanja() + ")";
+
+        /*ContentValues vrednosti = new ContentValues();
         vrednosti.put("idFilm", film.getIdFilm());
         vrednosti.put("tip", film.getTip());
         vrednosti.put("naslov", film.getNaslov());
@@ -79,7 +83,9 @@ public class BazaPomocnik extends SQLiteOpenHelper
         vrednosti.put("casTrajanja", film.getCasTrajanja());
 
         //pb.insert("FILMI", null, vrednosti);
-        pb.insertWithOnConflict("FILMI", null, vrednosti, SQLiteDatabase.CONFLICT_IGNORE);
+        pb.insertWithOnConflict("FILMI", null, vrednosti, SQLiteDatabase.CONFLICT_IGNORE);*/
+
+        pb.execSQL(stavek);
         pb.close();
     }
 
@@ -162,7 +168,11 @@ public class BazaPomocnik extends SQLiteOpenHelper
     {
         SQLiteDatabase pb = this.getWritableDatabase();
 
-        ContentValues vrednosti = new ContentValues();
+        String stavek =
+                "REPLACE INTO DOGODKI (idDogodek, naziv, naloga, vrednost, casProzitve, tkIdFilm)" +
+                " VALUES (" + dogodek.getIdDogodek() + ", '" + dogodek.getNaziv() + "', '" + dogodek.getNaloga() + "', " + dogodek.getVrednost() + ", " + dogodek. getCasProzitve() + ", " + dogodek.getTkIdFilm() + ")";
+
+        /*ContentValues vrednosti = new ContentValues();
         vrednosti.put("idDogodek", dogodek.getIdDogodek());
         vrednosti.put("naziv", dogodek.getNaziv());
         vrednosti.put("naloga", dogodek.getNaloga());
@@ -171,7 +181,9 @@ public class BazaPomocnik extends SQLiteOpenHelper
         vrednosti.put("tkIdFilm", dogodek.getTkIdFilm());
 
         //pb.insert("DOGODKI", null, vrednosti);
-        pb.insertWithOnConflict("DOGODKI", null, vrednosti, SQLiteDatabase.CONFLICT_IGNORE);
+        pb.insertWithOnConflict("DOGODKI", null, vrednosti, SQLiteDatabase.CONFLICT_IGNORE);*/
+
+        pb.execSQL(stavek);
         pb.close();
     }
 

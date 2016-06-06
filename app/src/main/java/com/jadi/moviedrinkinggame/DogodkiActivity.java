@@ -1,12 +1,18 @@
 package com.jadi.moviedrinkinggame;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Chronometer;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 public class DogodkiActivity extends AppCompatActivity
 {
@@ -16,6 +22,8 @@ public class DogodkiActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dogodki);
+
+        final TextView tvTimer = (TextView)findViewById(R.id.textViewTimer);
 
         BazaPomocnik bp = new BazaPomocnik(this);
 
@@ -31,11 +39,37 @@ public class DogodkiActivity extends AppCompatActivity
         String[] razbitiPreneseni = filmZaDogodke.split(":");
         int idZaDogodke = Integer.parseInt(razbitiPreneseni[0].toString());
 
-        ArrayList<Dogodek> izbraniDogodki = bp.beriIzbraneDogodke(idZaDogodke);
+        final ArrayList<Dogodek> izbraniDogodki = bp.beriIzbraneDogodke(idZaDogodke);
+
+        //Pridobivanje podatkov o trenutnem filmu
+        Film film = bp.beriFilm(idZaDogodke);
 
         //Izpis dogodkov
         ListView listViewDogodki = (ListView) findViewById(R.id.listViewDogodki);
         DogodekAdapter dogodekAdapter = new DogodekAdapter(this, izbraniDogodki);
         listViewDogodki.setAdapter(dogodekAdapter);
+
+        final Chronometer timer = (Chronometer)findViewById(R.id.chronometerTimer);
+        timer.start();
+
+        timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener()
+        {
+            @Override
+            public void onChronometerTick(Chronometer chronometer)
+            {
+                String cas = timer.getText().toString();
+                String[] casRazbit = cas.split(":");
+                int casSekunde = Integer.parseInt(casRazbit[0])*60 + Integer.parseInt(casRazbit[1]);
+                tvTimer.setText(String.valueOf(casSekunde));
+
+                for(Integer i=0; i<izbraniDogodki.size(); i++)
+                {
+                    if(izbraniDogodki.get(i).getCasProzitve() == casSekunde)
+                    {
+                        Toast.makeText(DogodkiActivity.this, izbraniDogodki.get(i).getNaziv() + " - " + izbraniDogodki.get(i).getNaloga(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
     }
 }

@@ -12,10 +12,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <Chronometer
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/chronometerTimer"/>
+
         <TextView
-            android:text="TextView"
+            android:text="Timer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewTimer" />
+
+        <TextView
+            android:text="Film"
             android:textSize="20sp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textViewIdFilm"
             app:layout_constraintLeft_toLeftOf="@+id/activity_dogodki"
@@ -29,5 +40,6 @@
             app:layout_constraintTop_toTopOf="@+id/activity_main"
             app:layout_constraintRight_toRightOf="@+id/activity_main"
             android:id="@+id/listViewDogodki" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

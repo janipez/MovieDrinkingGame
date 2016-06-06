@@ -32,11 +32,11 @@ public class DogodekAdapter extends ArrayAdapter<Dogodek>
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.dogodek_item, parent, false);
         }
         // Lookup view for data population
-        TextView tvName = (TextView) convertView.findViewById(R.id.dogodekNaziv);
-        TextView tvHome = (TextView) convertView.findViewById(R.id.dogodekNaloga);
+        TextView tvNaziv = (TextView) convertView.findViewById(R.id.dogodekNaziv);
+        TextView tvNaloga = (TextView) convertView.findViewById(R.id.dogodekNaloga);
         // Populate the data into the template view using the data object
-        tvName.setText(dogodek.naziv);
-        tvHome.setText(String.valueOf(dogodek.naloga));
+        tvNaziv.setText(dogodek.naziv);
+        tvNaloga.setText(String.valueOf(dogodek.naloga));
         // Return the completed view to render on screen
         return convertView;
     }
