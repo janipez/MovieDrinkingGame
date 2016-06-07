@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,14 +18,14 @@ import java.util.Timer;
 
 public class DogodkiActivity extends AppCompatActivity
 {
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dogodki);
 
-        final TextView tvTimer = (TextView)findViewById(R.id.textViewTimer);
+        final Chronometer timer = (Chronometer) findViewById(R.id.chronometerTimer);
+        final TextView tvTimer = (TextView) findViewById(R.id.textViewTimer);
+        final Button btnStart = (Button) findViewById(R.id.buttonStart);
 
         BazaPomocnik bp = new BazaPomocnik(this);
 
@@ -49,26 +51,27 @@ public class DogodkiActivity extends AppCompatActivity
         DogodekAdapter dogodekAdapter = new DogodekAdapter(this, izbraniDogodki);
         listViewDogodki.setAdapter(dogodekAdapter);
 
-        final Chronometer timer = (Chronometer)findViewById(R.id.chronometerTimer);
-        timer.start();
-
-        timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener()
+        btnStart.setOnClickListener(new View.OnClickListener()
         {
-            @Override
-            public void onChronometerTick(Chronometer chronometer)
+            public void onClick(View v)
             {
-                String cas = timer.getText().toString();
-                String[] casRazbit = cas.split(":");
-                int casSekunde = Integer.parseInt(casRazbit[0])*60 + Integer.parseInt(casRazbit[1]);
-                tvTimer.setText(String.valueOf(casSekunde));
+                timer.start();
 
-                for(Integer i=0; i<izbraniDogodki.size(); i++)
-                {
-                    if(izbraniDogodki.get(i).getCasProzitve() == casSekunde)
-                    {
-                        Toast.makeText(DogodkiActivity.this, izbraniDogodki.get(i).getNaziv() + " - " + izbraniDogodki.get(i).getNaloga(), Toast.LENGTH_LONG).show();
+                timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+                    @Override
+                    public void onChronometerTick(Chronometer chronometer) {
+                        String cas = timer.getText().toString();
+                        String[] casRazbit = cas.split(":");
+                        int casSekunde = Integer.parseInt(casRazbit[0]) * 60 + Integer.parseInt(casRazbit[1]);
+                        tvTimer.setText(String.valueOf(casSekunde));
+
+                        for (Integer i = 0; i < izbraniDogodki.size(); i++) {
+                            if (izbraniDogodki.get(i).getCasProzitve() == casSekunde) {
+                                Toast.makeText(DogodkiActivity.this, izbraniDogodki.get(i).getNaziv() + " - " + izbraniDogodki.get(i).getNaloga(), Toast.LENGTH_LONG).show();
+                            }
+                        }
                     }
-                }
+                });
             }
         });
     }

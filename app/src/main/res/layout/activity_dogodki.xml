@@ -23,6 +23,13 @@
             android:layout_height="wrap_content"
             android:id="@+id/textViewTimer" />
 
+        <Button
+            android:text="Start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonStart"
+            android:background="@drawable/botton_selector" />
+
         <TextView
             android:text="Film"
             android:textSize="20sp"
