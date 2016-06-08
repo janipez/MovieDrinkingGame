@@ -28,7 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/buttonStart"
-            android:background="@drawable/botton_selector" />
+            android:background="@drawable/botton_selector"
+            android:onClick="buttonStartTimer" />
 
         <TextView
             android:text="Film"

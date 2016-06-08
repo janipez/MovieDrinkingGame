@@ -3,8 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#18ffff</color>
-    <color name="pressed_button_background">#64dd17</color>
-    <color name="pressed_button_background2">#1e88e5</color>
-    <color name="released_button_background">#84ffff</color>
+    <color name="pressed_button_background">#304ffe</color>
+    <color name="pressed_button_background2">#0091ea</color>
+    <color name="released_button_background">#18ffff</color>
 </resources>
 
